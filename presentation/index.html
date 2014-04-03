@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>RESTful Workshop</title>
+
+	<meta name="description" content="RESTful Workshop Slides">
+	<meta name="author" content="Rav Tonsiengsom">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="css/reveal.min.css">
+	<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+	<script>
+	if( window.location.search.match( /print-pdf/gi ) ) {
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = 'css/print/pdf.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	}
+	</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section> <!-- Overview -->
+					<section>
+						<h1>RESTful Workshop</h1>
+						<h2>NVISIA LLC</h2>
+					</section>
+
+					<section>
+						<h2>Workshop Overview</h2>
+					</section>
+
+					<section>
+						<h2>Evolution of the Web API</h2>
+					</section>
+
+					<section>
+						<h2>REST and Web APIs</h2>
+						<h5 class="fragment">What Is REST?</p>					
+					</section>
+
+					<section>
+						<h2>Modern Web APIs</h2>
+						<p class="fragment">RESTful APIs</p>
+					</section>
+
+					<section>
+						<h2>Web API Security</h2>
+					</section>
+
+					<section>
+						<h2>Hands On</h2>
+						<p>Node + Express</p>
+					</section>
+				</section>
+
+				<section> <!-- Evolution of the Web API -->
+					<section>
+						<h2>Evolution of the Web API</h2>
+					</section>
+					<section>
+						<h2>The Early Days</h2>
+					</section>
+					<section>
+						<h2>Example</h2>
+						<pre><code style="font-size: 18px; margin-top: 20px;">http://www.foo.org/?action=add&fn=Jon&ln=Smith&id=12345&t1=Foo&t2=bar&other=no%20%more</code></pre>
+						<p class="fragment">Ugh</p>
+					</section>
+					<section>
+						<h2>How We Built Them</h2>
+					</section>	
+					<section>
+						<h2>CGI Programs</h2>
+						<p>Written with...</p>
+						<ul>
+							<li class="fragment">Perl</li>
+							<li class="fragment">PHP</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Java</h2>
+						<ul>
+							<li class="fragment">Servlets</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Microsoft Stack</h2>
+						<p class="fragment">Active Server Pages</p>
+						<p class="fragment">.NET</p>
+					</section>
+
+					<section>
+						<h2>Web Services + SOAP</h2>
+
+<pre><code data-trim>
+POST /InStock HTTP/1.1
+Host: www.example.org
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: nnn
+
+<?xml version="1.0"?>
+<soap:Envelope
+xmlns:soap="http://www.w3.org/2001/12/soap-envelope" 
+soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
+
+<soap:Body xmlns:m="http://www.example.org/stock">
+  <m:GetStockPrice>
+    <m:StockName>IBM</m:StockName>
+  </m:GetStockPrice>
+</soap:Body>
+
+</soap:Envelope>
+</code></pre>
+					</section>
+					<section>
+						<h2>Web Services + SOAP</h2>
+						<p class="fragment">Primarily an RPC Mechanism - <span class="fragment">Operations on an endpoint</span></p>
+						<p class="fragment">i.e. getSomething(id), saveSomething(thing)</p>
+					</section>
+					<section>
+						<h2>Web Services + SOAP</h2>
+						<p>Still viable</p>
+						<p>Big IT - Internal Use</p>
+					</section>
+					<section>
+						<h2>Early REST</h2>
+						<p>Not-So-Good URLs</p>
+						<pre><code>http://www.mycompany.com/product/new</code></pre>
+					</section>
+				</section> <!-- End Evolution of the Web API -->	
+
+				<section> <!-- What is REST? -->
+					<section>
+						<h2>What is REST?</h2>
+						<p class="fragment">Origin</p>
+						<p class="fragment">Interpretation</p>
+					</section>
+
+					<section>
+						<h2>Origin</h2>
+						<p class="fragment">Roy Fielding's Thesis</p>
+						<p class="fragment">Architectural Style</p>
+					</section>
+
+					<section>
+						<h2>Interpretation</h2>
+						<h5>Uniform Interface For All Resources</h2>
+						<ol>
+							<li class="fragment">Identification of resources (5.2.1.1)</li>
+							<li class="fragment">Resources are manipulated via their representations (5.2.1.2)</li>
+							<li class="fragment">Messages are self-descriptive (5.2.2)</li>
+							<li class="fragment">Hypermedia as the engine of application state (HATEOAS) (5.1.5) </li>
+						</ol>
+						<aside class="notes">What were the keys points of this paper that we see in modern implementations?</aside>
+					</section>
+				</section> <!-- What is REST? -->
+
+				<section> <!-- Modern Day Realization of REST -->
+					<section>
+						<h2>Modern Day Realization of REST</h2>
+						<p class="fragment">RESTful Web APIs</p>
+						<p class="fragment">REST and HTTP's Uniform Interface</p>
+					</section>
+
+					<section>
+						<h3>RESTful Web APIs</h3>
+						<h7 class="fragment">A Standard? <span class="fragment">No. Just guidance.</span></h7>						
+						<ul>
+							<li class="fragment">Identification of resources <span class="fragment">-> Each resource is addressable by a URI</span></li>
+							<li class="fragment">Resources are manipulated via their representations -> <span class="fragment">XML, JSON, etc.</span></li>
+							<li class="fragment">Messages are self-descriptive <span class="fragment">-> a message contains everything needed for a stateless server to process it</span></li>
+							<li class="fragment">Hypermedia as the engine of application state (HATEOAS) <span class="fragment">-> links to other views of the resource or related resources</span></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>HTTP's Uniform Interface</h2>
+						<p>Identification of resources</p>
+						<p class="fragment">URLs</p>
+					</section>
+
+					<section>
+						<h2>URLs</h2>
+						<p class="fragment">List some products</p>
+						<pre class="fragment"><code>http://www.mycompany.com/api/products</code></pre>
+						<p class="fragment">One specific product</p>
+						<pre class="fragment"><code>http://www.mycompany.com/api/products/1</code></pre>
+						<p class="fragment">Images of a specific product</p>
+						<pre class="fragment"><code>http://www.mycompany.com/api/products/1/images</code></pre>
+					</section>
+
+					<section>
+						<h2>HTTP's Uniform Interface</h2>
+						<h5>Resources are manipulated via their representations</h5>
+						<p>JSON</p>
+						<p class="fragment">Yes, you can use XML</p>
+					</section>
+
+					<section>
+						<h2>HTTP's Uniform Interface</h2>
+						<h5>Resources are manipulated via their representations</h5>
+						<p class="fragment">HTTP Verbs</p>
+						<ul>
+							<li class="fragment">GET <span class="fragment">-> Fetch a resource</span></li>
+							<li class="fragment">POST <span class="fragment">-> Create a new resource</span></li>
+							<li class="fragment">PUT <span class="fragment">-> Update existing resource</span></li>
+							<li class="fragment">DELETE <span class="fragment">-> Remove a resource</span></li>
+						</ul>
+					</section>
+				</section>
+
+				<section> <!-- Building Modern web APIs -->
+					<h2>Building Modern Web APIs</h2>
+					<p>Server-side implementations</p>
+					<p>API Security</p>
+				</section>
+
+				<section>
+					<h2>Server-Side Stacks</h2>
+					<p class="fragment">.NET</p>
+					<p class="fragment">Java</p>
+					<ul>
+						<li class="fragment">Spring</li>
+						<li class="fragment">Jersey</li>
+						<li class="fragment">Play</li>
+					</ul>
+					<p class="fragment">Rails/Grails</p>
+					<p class="fragment">Node+Express</p>
+				</section>
+
+				<section>
+					<h2>API Security</h2>
+					<p class="fragment">Authentication (Who are you and are you allowed To Play?)</p>
+					<p class="fragment">Authorization (What Am I Allowed to Play With?)</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Authetication</h2>
+						<p>Authentication Provider</p>
+						<p>Cookie-Based Authentication</p>
+						<p>Token-Based</p>
+					</section>
+					<section>
+						<h2>Authentication Provider</h2>
+						<p>Authenticates passed credentials</p>
+						<p>Returns "marker"</p> 
+						<p>Client passes back "marker" on each subsequent request</p>
+					</section>
+					<section>
+						<h2>Cookie-Based Authentication</h2>
+						<p>Pass back secure cookie on success cred validation</p>						
+						<p>Lots of app servers have for free</p>
+						<p>Browser passes back automatically to server</p>
+						<p>Some additional infrastructure required</p>
+					</section>
+					<section>
+						<h2>Example: Using HTTP Session</h2>
+						<p></p>
+					</section>
+					<section>
+						<h2>Token-Based Authentication</h2>
+						<p>Generate token and pass back to client</p>
+						<p>Examples: SAML, OpenID</p>
+					</section>
+					<section>
+						<h2>Example: Open ID Connect</h2>
+					</section>
+				</section>
+
+				<section>
+					<h2>Authorization</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+		</script>		
+	</body>
+	</html>
