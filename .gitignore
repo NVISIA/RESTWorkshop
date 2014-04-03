@@ -1,0 +1,63 @@
+#Android generated
+bin
+gen
+
+#Eclipse
+.project
+.classpath
+.settings
+
+#IntelliJ IDEA
+.idea
+*.iml
+
+#Sublime Text
+*.sublime*
+
+#Maven
+target
+release.properties
+pom.xml.*
+
+#Backup Files
+*~
+
+#Bower components.
+bower_components
+
+#Android
+.gradle
+signing.gradle
+
+#build folder
+build
+.gradle
+
+#out folder
+out
+
+#node
+node_modules
+
+#misc
+.mymetadata
+classes
+CVS
+target
+generated
+.cvsignore
+out
+.DS_Store
+*.log
+
+#nodemon
+.nodemonignore
+
+#mongo
+*.0
+*.1
+*.ns
+*.lock
+
+#credentials for deployments
+secret.json
