@@ -67,9 +67,15 @@
 						<h2>Web API Security</h2>
 					</section>
 
+					<!-- Swap out based on what lab exercises will be the focus -->
 					<section>
 						<h2>Hands On</h2>
 						<p>Node + Express</p>
+					</section>
+
+					<section>
+						<h2>Hands On</h2>
+						<p>Java + Spring</p>
 					</section>
 				</section>
 
@@ -110,7 +116,6 @@
 
 					<section>
 						<h2>Web Services + SOAP</h2>
-
 <pre><code data-trim>
 POST /InStock HTTP/1.1
 Host: www.example.org
@@ -138,13 +143,24 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 					</section>
 					<section>
 						<h2>Web Services + SOAP</h2>
-						<p>Still viable</p>
-						<p>Big IT - Internal Use</p>
+						<p class="fragment">Still viable</p>
+						<p class="fragment">Heavyweight(WS*)</p>
+						<p class="fragment">Large enterprises, B2B</p>
 					</section>
 					<section>
 						<h2>Early REST</h2>
 						<p>Not-So-Good URLs</p>
 						<pre><code>http://www.mycompany.com/product/new</code></pre>
+						<p class="fragment">RPC Style! <span class="fragment">This is not RESTful</span></p>
+					</section>
+					<section>
+						<h2>Early REST</h2>
+						<p>Improper Use of HTTP semantics</p>
+						<p class="fragment">PUT/DELETE? What?</p>
+					</section>
+
+					<section>
+						<h2>You're Doing It Wrong</h2>
 					</section>
 				</section> <!-- End Evolution of the Web API -->	
 
@@ -177,8 +193,17 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 				<section> <!-- Modern Day Realization of REST -->
 					<section>
 						<h2>Modern Day Realization of REST</h2>
+						<p class="fragment">Richardson Maturity Model</p>
 						<p class="fragment">RESTful Web APIs</p>
 						<p class="fragment">REST and HTTP's Uniform Interface</p>
+					</section>
+
+					<section>
+						<h2>Richardson Maturity Model</h2>
+						<p class="fragment">Level 0: RPC</p>
+						<p class="fragment">Level 1: Resources</p>
+						<p class="fragment">Level 2: HTTP Verbs</p>
+						<p class="fragment">Level 3: Hypermedia Controls</p>
 					</section>
 
 					<section>
@@ -199,13 +224,19 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 					</section>
 
 					<section>
-						<h2>URLs</h2>
+						<h2>Lab: Creating Our Resources</h2>
+					</section>
+
+					<section>
+						<h2>Good URLs</h2>
 						<p class="fragment">List some products</p>
 						<pre class="fragment"><code>http://www.mycompany.com/api/products</code></pre>
 						<p class="fragment">One specific product</p>
 						<pre class="fragment"><code>http://www.mycompany.com/api/products/1</code></pre>
 						<p class="fragment">Images of a specific product</p>
 						<pre class="fragment"><code>http://www.mycompany.com/api/products/1/images</code></pre>
+						<p class="fragment">Proper use of query string params</p>
+						<pre class="fragment"><code>http://www.mycompany.com/api/products/?sort=descending</code></pre>
 					</section>
 
 					<section>
@@ -226,6 +257,43 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 							<li class="fragment">DELETE <span class="fragment">-> Remove a resource</span></li>
 						</ul>
 					</section>
+
+					<section>
+						<h2>Lab: Identifying and Manipulating Resources</h2>
+					</section>
+
+					<section>
+						<h2>HATEOAS</h2>
+						<p class="fragment">Hypermedia As The Engine Of Application State</p>
+						<p class="fragment">Link me to related stuff!</p>
+					</section>
+
+					<section>
+						<h2>HATEOAS: JSON</h2>
+						<pre><code>GET /api/person/1 HTTP/1.1
+
+HTTP/1.1 200 OK
+{
+	"firstName": "John",
+	"lastName": "Smith",
+	"links": [{"rel": "self", "href": http://localhost:8080/api/person/1"}, 
+	  {"rel": "posts", "href": "http://localhost:8080/api/person/1/posts"}, 
+	  {"rel": "photos": "href": "http://localhost:8080/api/person/photos"}]
+}							
+						</code></pre>
+					</section>
+					<section>
+						<h2>HATEOAS: XML</h2>
+
+					</section>
+
+					<section>
+						<h2>Lab: Spring HATEOAS</h2>
+					</section>					
+				</section>
+
+				<section>
+					<h2>SOA and REST</h2>
 				</section>
 
 				<section> <!-- Building Modern web APIs -->
@@ -236,13 +304,13 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 
 				<section>
 					<h2>Server-Side Stacks</h2>
-					<p class="fragment">.NET</p>
 					<p class="fragment">Java</p>
 					<ul>
-						<li class="fragment">Spring</li>
+						<li class="fragment">Spring <span class="fragment">-> Focus of the exercises</span></li>
 						<li class="fragment">Jersey</li>
 						<li class="fragment">Play</li>
 					</ul>
+					<p class="fragment">.NET</p>
 					<p class="fragment">Rails/Grails</p>
 					<p class="fragment">Node+Express</p>
 				</section>
@@ -255,7 +323,7 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 
 				<section>
 					<section>
-						<h2>Authetication</h2>
+						<h2>Authentication</h2>
 						<p>Authentication Provider</p>
 						<p>Cookie-Based Authentication</p>
 						<p>Token-Based</p>
