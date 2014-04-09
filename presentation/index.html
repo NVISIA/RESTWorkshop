@@ -50,34 +50,66 @@
 					</section>
 
 					<section>
-						<h2>Evolution of the Web API</h2>
+						<h2>What is REST?</h2>
+						<aside class="notes">We're going to talk about the architectural concept of REST and its origins in academia.</aside>
 					</section>
 
 					<section>
-						<h2>REST and Web APIs</h2>
-						<h5 class="fragment">What Is REST?</p>					
+						<h2>Evolution of the Web API</h2>
 					</section>
 
 					<section>
 						<h2>Modern Web APIs</h2>
 						<p class="fragment">RESTful APIs</p>
+						<p class="fragment">Lab Exercises</p>
 					</section>
 
 					<section>
 						<h2>Web API Security</h2>
-					</section>
-
-					<!-- Swap out based on what lab exercises will be the focus -->
-					<section>
-						<h2>Hands On</h2>
-						<p>Node + Express</p>
+						<p class="fragment">Authentication</p>
+						<p class="fragment">Authorization</p>
 					</section>
 
 					<section>
-						<h2>Hands On</h2>
-						<p>Java + Spring</p>
+						<h2>REST and SOA</h2>
+						<p class="fragment">Designing APIs for Your Customers</p>
 					</section>
+
 				</section>
+
+				<section> <!-- What is REST? -->
+					<section>
+						<h2>What is REST?</h2>
+						<p class="fragment">Origin</p>
+						<p class="fragment">Key Take-Aways</p>
+					</section>
+
+					<section>
+						<h2>Origin</h2>
+						<p class="fragment">Roy Fielding's Thesis</p>
+						<p class="fragment">Architectural Style</p>
+					</section>
+
+					<section>
+						<h2>REST Thesis</h2>
+						<p class="fragment">Architectural style for the web</p>
+						<p class="fragment">Protocol agnostic</p>
+						<p class="fragment">But maps well to HTTP</p>
+						<p class="fragment">Focus on resources</p>
+					</section>
+
+					<section>
+						<h2>Key Take-Aways</h2>
+						<h5>Uniform Interface For All Resources</h2>
+						<ol>
+							<li class="fragment">Identification of resources (5.2.1.1)</li>
+							<li class="fragment">Resources are manipulated via their representations (5.2.1.2)</li>
+							<li class="fragment">Messages are self-descriptive (5.2.2)</li>
+							<li class="fragment">Hypermedia as the engine of application state (HATEOAS) (5.1.5) </li>
+						</ol>
+						<aside class="notes">What were the keys points of this paper that we see in modern implementations?</aside>
+					</section>
+				</section> <!-- What is REST? -->
 
 				<section> <!-- Evolution of the Web API -->
 					<section>
@@ -85,11 +117,6 @@
 					</section>
 					<section>
 						<h2>The Early Days</h2>
-					</section>
-					<section>
-						<h2>Example</h2>
-						<pre><code style="font-size: 18px; margin-top: 20px;">http://www.foo.org/?action=add&fn=Jon&ln=Smith&id=12345&t1=Foo&t2=bar&other=no%20%more</code></pre>
-						<p class="fragment">Ugh</p>
 					</section>
 					<section>
 						<h2>How We Built Them</h2>
@@ -112,6 +139,17 @@
 						<h2>Microsoft Stack</h2>
 						<p class="fragment">Active Server Pages</p>
 						<p class="fragment">.NET</p>
+					</section>
+
+					<section>
+						<h2>Example</h2>
+						<pre><code style="font-size: 18px; margin-top: 20px;">http://www.foo.org/?action=add&fn=Jon&ln=Smith&id=12345&t1=Foo&t2=bar&other=no%20%more</code></pre>
+						<p class="fragment">Ugh. Why is this not RESTful?</p>
+						<ul>
+								<li class="fragment">URLs become super-long, un-readable (all those ampersands, percents, etc.)</li>
+								<li class="fragment">Potentially sensitive information is visible in URL</li>
+								<li class="fragment">Using query params to represent a resource.<span class="fragment">(Query Params should be used to filter results)</span></li>
+						</ul>
 					</section>
 
 					<section>
@@ -144,8 +182,8 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 					<section>
 						<h2>Web Services + SOAP</h2>
 						<p class="fragment">Still viable</p>
-						<p class="fragment">Heavyweight(WS*)</p>
 						<p class="fragment">Large enterprises, B2B</p>
+						<p class="fragment">Heavyweight(WS*)</p>
 					</section>
 					<section>
 						<h2>Early REST</h2>
@@ -157,6 +195,7 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 						<h2>Early REST</h2>
 						<p>Improper Use of HTTP semantics</p>
 						<p class="fragment">PUT/DELETE? What?</p>
+						<aside class="notes">People knew what GET vs. POST was but PUT, DELETE, OPTION and other HTTP verbs were relatively unknown or ignored.</aside>
 					</section>
 
 					<section>
@@ -164,31 +203,25 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 					</section>
 				</section> <!-- End Evolution of the Web API -->	
 
-				<section> <!-- What is REST? -->
-					<section>
-						<h2>What is REST?</h2>
-						<p class="fragment">Origin</p>
-						<p class="fragment">Interpretation</p>
-					</section>
+				<section> <!-- Building Modern web APIs -->
+					<h2>Building Modern Web APIs</h2>
+					<p>Server-side implementations</p>
+					<p>API Security</p>
+				</section>
 
-					<section>
-						<h2>Origin</h2>
-						<p class="fragment">Roy Fielding's Thesis</p>
-						<p class="fragment">Architectural Style</p>
-					</section>
-
-					<section>
-						<h2>Interpretation</h2>
-						<h5>Uniform Interface For All Resources</h2>
-						<ol>
-							<li class="fragment">Identification of resources (5.2.1.1)</li>
-							<li class="fragment">Resources are manipulated via their representations (5.2.1.2)</li>
-							<li class="fragment">Messages are self-descriptive (5.2.2)</li>
-							<li class="fragment">Hypermedia as the engine of application state (HATEOAS) (5.1.5) </li>
-						</ol>
-						<aside class="notes">What were the keys points of this paper that we see in modern implementations?</aside>
-					</section>
-				</section> <!-- What is REST? -->
+				<section>
+					<h2>Server-Side Stacks</h2>
+					<p class="fragment">Java</p>
+					<ul>
+						<li class="fragment">Spring <span class="fragment">-> Focus of the exercises</span></li>
+						<li class="fragment">Jersey</li>
+						<li class="fragment">Play</li>
+					</ul>
+					<p class="fragment">.NET</p>
+					<p class="fragment">Rails/Grails</p>
+					<p class="fragment">Node+Express</p>
+					<aside class="notes"></aside>
+				</section>
 
 				<section> <!-- Modern Day Realization of REST -->
 					<section>
@@ -224,7 +257,8 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 					</section>
 
 					<section>
-						<h2>Lab: Creating Our Resources</h2>
+						<h2>Exercise: Creating Our Resources</h2>
+						<p class="fragment">Spring Boot Introduction and Setup</p>
 					</section>
 
 					<section>
@@ -244,6 +278,11 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 						<h5>Resources are manipulated via their representations</h5>
 						<p>JSON</p>
 						<p class="fragment">Yes, you can use XML</p>
+					</section>
+
+					<section>
+						<h2>JSON Format</h2>
+						<!-- TODO: Add representations -->
 					</section>
 
 					<section>
@@ -271,48 +310,37 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 					<section>
 						<h2>HATEOAS: JSON</h2>
 						<pre><code>GET /api/person/1 HTTP/1.1
+Accept: application/vnd.mycompany.someapp-v1+json
 
 HTTP/1.1 200 OK
 {
 	"firstName": "John",
 	"lastName": "Smith",
-	"links": [{"rel": "self", "href": http://localhost:8080/api/person/1"}, 
+	"links": [{"rel": "self", "href": "http://localhost:8080/api/person/1"}, 
 	  {"rel": "posts", "href": "http://localhost:8080/api/person/1/posts"}, 
-	  {"rel": "photos": "href": "http://localhost:8080/api/person/photos"}]
+	  {"rel": "photos": "href": "http://localhost:8080/api/person/1/photos"}]
 }							
 						</code></pre>
 					</section>
 					<section>
 						<h2>HATEOAS: XML</h2>
+<pre><code>GET /api/person/1 HTTP/1.1
+Accept: application/vnd.mycompany.someapp-v1+xml
 
+HTTP/1.1 200 OK
+<person>
+	<firstName>John</firstName>
+	<lastName>Smith</lastName>
+	<link rel="self" href="http://localhost:8080/api/person/1" method="GET"/>
+	<link rel="posts" href="http://localhost:8080/api/person/1/posts" method="GET"/>
+	<link rel="posts" href="http://localhost:8080/api/person/1/photos" method="GET"/>	
+</person>
+</code></pre>
 					</section>
 
 					<section>
-						<h2>Lab: Spring HATEOAS</h2>
+						<h2>Exercise: Spring HATEOAS</h2>
 					</section>					
-				</section>
-
-				<section>
-					<h2>SOA and REST</h2>
-				</section>
-
-				<section> <!-- Building Modern web APIs -->
-					<h2>Building Modern Web APIs</h2>
-					<p>Server-side implementations</p>
-					<p>API Security</p>
-				</section>
-
-				<section>
-					<h2>Server-Side Stacks</h2>
-					<p class="fragment">Java</p>
-					<ul>
-						<li class="fragment">Spring <span class="fragment">-> Focus of the exercises</span></li>
-						<li class="fragment">Jersey</li>
-						<li class="fragment">Play</li>
-					</ul>
-					<p class="fragment">.NET</p>
-					<p class="fragment">Rails/Grails</p>
-					<p class="fragment">Node+Express</p>
 				</section>
 
 				<section>
@@ -342,21 +370,87 @@ HTTP/1.1 200 OK
 						<p>Some additional infrastructure required</p>
 					</section>
 					<section>
-						<h2>Example: Using HTTP Session</h2>
-						<p></p>
-					</section>
-					<section>
 						<h2>Token-Based Authentication</h2>
 						<p>Generate token and pass back to client</p>
 						<p>Examples: SAML, OpenID</p>
 					</section>
 					<section>
+						<h2>Passing Credentials</h2>
+						<p class="fragment">HTTP Headers</p>
+						<p class="fragment">Form POST</p>
+						<p class="fragment">Custom format -> SAML, Open ID</p>
+					</section>
+					<section>
+						<h2>Example: Spring Security</h2>
+						<p class="fragment">Standard in Java Space</p>
+						<p class="fragment">Cookies-Based authentication</p>
+						<p class="fragment">Custom Security Token <span class="fragment">SAML, etc.</p></p>
+						<p class="fragment">OAuth2: Spring Security OAuth</p>
+					</section>
+					<!--
+					<section>
 						<h2>Example: Open ID Connect</h2>
+						<p class="fragment">A standard for passing authentication information</p>
+						<p class="fragment"></p>
+					</section> -->
+					<section>
+						<h2>Exercise: Authentication With Spring Security OAuth</h2>
 					</section>
 				</section>
 
 				<section>
-					<h2>Authorization</h2>
+					<section>
+						<h2>Authorization</h2>
+					</section>
+					<section>
+						<h2>Provider and Consumers</h2>
+						<p class="fragment">OAuth Definitions</p>
+					</section>
+					<section>
+						<h2>Security Wrapper</h2>
+						<p class="fragment">Decorator/Filter</p>
+					</section>
+					<section>
+						<h2>Exercise: Using Spring OAuth<h2>
+					</section>					
+				</section>
+
+				<section>
+					<section>
+						<h2>REST and SOA</h2>
+						<p class="fragment">Designing Web APIs for Your Customers</p>
+					</section>
+					<section>
+						<h2>SOA</h2>
+						<p class="fragment">A in SOA = Architecture</p>
+						<p class="fragment">SOA ==/== Publishing An API</p>
+					</section>
+					<section>
+						<h2>Designing for SOA</h2>
+						<p class="fragment">Understand Your Consumers <span class="fragment">What are their requirements?</span></p>
+						<p class="fragment">Versioning!</p>
+						<p class="fragment">Layered Architecture <span class="fragment">Often consolidates existing point-to-point APIs</span></p>
+						<p class="fragment">Interoperability <span class="fragment">i.e. set some standards</span></p>
+					</section>
+					<section>
+						<h2>REST and SOA</h2>
+						<p class="fragment">It's not REST vs. SOA(P)</p>
+						<p class="fragment">SOA is an architectural opinion...like REST</p>
+						<p class="fragment">REST and SOA are great fits for one another 
+							<span class="fragment">--> Everything really does connect</span></p>
+					</section>
+					<section>
+						<h2>Everything Connects</h2>
+						<p class="fragment">Business Services</p>
+						<p class="fragment">SPA/Mobile</p>
+						<p class="fragment">Big Data/NoSQL/Enterprise Data/MDM</p>
+						<p class="fragment">Enterprise Content Management</p>
+					</section>
+
+					<section>
+						<h2>SPA Clients</h2>
+						<p class="fragment">angularjs</p>
+					</section>
 				</section>
 			</div>
 		</div>
