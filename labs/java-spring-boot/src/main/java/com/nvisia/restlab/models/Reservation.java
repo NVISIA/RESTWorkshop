@@ -23,6 +23,8 @@ public class Reservation {
 	private Restaurant restaurant;
 	@Column(name = "PARTY_SIZE")
 	private Integer partySize;
+	@Column(name = "CANCELLED")
+	private Boolean cancelled;
 	
 	public Reservation() {
 		super();

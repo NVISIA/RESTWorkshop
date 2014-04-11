@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nvisia.restlab.integrations.ReservationRepository;
 import com.nvisia.restlab.integrations.RestaurantRepository;
 import com.nvisia.restlab.models.Reservation;
 import com.nvisia.restlab.models.Restaurant;
@@ -21,6 +23,8 @@ public class RestaurantController extends AbstractRestController {
 	
 	@Autowired
 	private RestaurantRepository restaurantRepo;
+	@Autowired
+	private ReservationRepository reservationRepo;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -52,19 +56,21 @@ public class RestaurantController extends AbstractRestController {
 	}
 	
 	@RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
-	public List<Reservation> getReservationsForRestaurant(@PathVariable Long id) {
+	public List<Reservation> getReservationsForRestaurant(@PathVariable Long id, 
+		@RequestParam(value = "partySize", required = false) Integer partySize) {
 		
-		Restaurant restaurant = restaurantRepo.findOne(id);
+		List<Reservation> retVal = null;
 		
-		if (restaurant == null) {
+		if (partySize != null) {
+			retVal = reservationRepo.findByRestaurantIdAndPartySize(id,  partySize);
+		} else {
+			retVal = reservationRepo.findByRestaurantId(id);
+		}
+		
+		if (retVal == null || retVal.size() < 1) {
 			throw new NotFoundException();
 		}
-		
-		List<Reservation> retVal = new ArrayList<Reservation>();
-		for (Reservation reservation: restaurant.getReservations()) {
-			retVal.add(reservation);
-		}
-		
+				
 		return retVal;
 	}
 	
