@@ -40,7 +40,6 @@ public class RestaurantController extends AbstractRestController {
 		}
 		
 		return restaurants;
-		
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -73,5 +72,4 @@ public class RestaurantController extends AbstractRestController {
 				
 		return retVal;
 	}
-	
 }
