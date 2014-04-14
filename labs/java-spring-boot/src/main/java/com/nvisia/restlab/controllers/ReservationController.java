@@ -1,5 +1,8 @@
 package com.nvisia.restlab.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,16 @@ public class ReservationController extends AbstractRestController {
 	private ReservationRepository reservationRepo;
 	@Autowired
 	private RestaurantRepository restaurantRepo;
+	
+	@RequestMapping(method= RequestMethod.GET) 
+	public List<Reservation> getReservations() {
+		List<Reservation> retVal = new ArrayList<Reservation>();
+		
+		for (Reservation reservation: reservationRepo.findAll()) {
+			retVal.add(reservation);
+		}
+		return retVal;
+	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Reservation getReservationById(Long id) {
