@@ -14,14 +14,18 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+                .withUser("user").password("password").roles("USER")
+                .and()
+                .withUser("admin").password("admin").roles("USER", "ADMIN");
     }
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
-    		.antMatcher("/api/**")
+            .csrf().disable()
     		.authorizeRequests()
+            .antMatchers("/api/**").hasRole("USER")
+            .antMatchers("/beans/**").hasRole("ADMIN")
     		.anyRequest()
     		.authenticated()
     		.and()
