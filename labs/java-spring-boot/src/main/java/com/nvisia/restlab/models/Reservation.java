@@ -54,5 +54,13 @@ public class Reservation {
 
 	public void setPartySize(Integer partySize) {
 		this.partySize = partySize;
-	}	
+	}
+
+    public Boolean getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(Boolean cancelled) {
+        this.cancelled = cancelled;
+    }
 }
