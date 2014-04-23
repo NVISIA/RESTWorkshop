@@ -1,21 +1,15 @@
 package com.nvisia.restlab.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.nvisia.restlab.integrations.ReservationRepository;
 import com.nvisia.restlab.integrations.RestaurantRepository;
 import com.nvisia.restlab.models.Reservation;
 import com.nvisia.restlab.models.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/restaurants")
@@ -41,19 +35,35 @@ public class RestaurantController extends AbstractRestController {
 		
 		return restaurants;
 	}
-	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public Restaurant getRestaurant(@PathVariable Long id) {
-		Restaurant retVal = restaurantRepo.findOne(id);
-		
-		if (retVal == null) {
-			throw new NotFoundException();
-		}
-	 
-		return retVal;
-	}
-	
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Restaurant getRestaurant(@PathVariable Long id) {
+        Restaurant retVal = restaurantRepo.findOne(id);
+
+        if (retVal == null) {
+            throw new NotFoundException();
+        }
+
+        return retVal;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
+
+        restaurantRepo.save(restaurant);
+
+        return restaurant;
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public Restaurant updateRestaurant(@RequestBody Restaurant restaurant) {
+        restaurantRepo.save(restaurant);
+        return restaurant;
+    }
+
 	@RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
 	public List<Reservation> getReservationsForRestaurant(@PathVariable Long id, 
 		@RequestParam(value = "partySize", required = false) Integer partySize) {
@@ -72,4 +82,16 @@ public class RestaurantController extends AbstractRestController {
 				
 		return retVal;
 	}
+
+    @RequestMapping(value = "{id}/reservations", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Reservation makeReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
+
+        Restaurant restaurant  = restaurantRepo.findOne(id);
+        if (null == restaurant) throw new NotFoundException();
+
+        reservation.setRestaurant(restaurant);
+        reservationRepo.save(reservation);
+        return reservation;
+    }
 }
