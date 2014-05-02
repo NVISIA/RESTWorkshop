@@ -1,17 +1,13 @@
 package com.nvisia.restlab.models;
 
-import java.util.List;
+import org.springframework.hateoas.Identifiable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "RESTAURANTS")
-public class Restaurant {
+public class Restaurant implements Identifiable<Long> {
 	
 	@Id
 	@GeneratedValue
@@ -21,19 +17,8 @@ public class Restaurant {
 	private String name;
 	@OneToMany(mappedBy = "restaurant")
 	private List<Reservation> reservations;
-	
-	public Restaurant() {
-		super();
-	}
 
-	public Restaurant(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
+    public Long getId() { return id; }
 
 	public String getName() {
 		return name;
