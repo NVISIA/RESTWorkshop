@@ -24,12 +24,18 @@ repositories {
 }
 
 dependencies {
-	//spring
+	//Spring Actuator
 	compile("org.springframework.boot:spring-boot-starter-actuator")
+    //Spring Data JPA (Persistence)
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile("org.springframework.boot:spring-boot-starter-jdbc")
+    //Spring Security
     compile("org.springframework.boot:spring-boot-starter-security")
+    //Spring Web (Includes MVC and REST/JSON Web API support)
     compile("org.springframework.boot:spring-boot-starter-web")
+    //Spring HATEAOS
+    compile("org.springframework.hateoas:spring-hateoas")
+
     testCompile("junit:junit")
 
 	//runtime database
