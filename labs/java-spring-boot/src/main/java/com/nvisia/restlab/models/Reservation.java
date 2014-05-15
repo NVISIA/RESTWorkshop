@@ -23,6 +23,8 @@ public class Reservation {
 	private Restaurant restaurant;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Customer customer;
+    @Column(name = "RESERVED_BY")
+    private String reservationName;
 	@Column(name = "PARTY_SIZE")
 	private Integer partySize;
 	@Column(name = "CANCELLED")
@@ -63,4 +65,8 @@ public class Reservation {
     public void setCancelled(Boolean cancelled) {
         this.cancelled = cancelled;
     }
+
+    public String getReservationName() { return reservationName; }
+
+    public void setReservationName(String reservationName) { this.reservationName = reservationName; }
 }
