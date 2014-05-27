@@ -1,14 +1,8 @@
 package com.nvisia.restlab.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -21,8 +15,6 @@ public class Reservation {
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Restaurant restaurant;
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Customer customer;
     @Column(name = "RESERVED_BY")
     private String reservationName;
 	@Column(name = "PARTY_SIZE")
