@@ -21,8 +21,6 @@ public class Reservation {
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Restaurant restaurant;
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Customer customer;
     @Column(name = "RESERVED_BY")
     private String reservationName;
 	@Column(name = "PARTY_SIZE")
