@@ -22,44 +22,4 @@ public class RestaurantController {
 	private RestaurantRepository restaurantRepo;
 	@Autowired
 	private ReservationRepository reservationRepo;
-	
-	@RequestMapping(method=RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public List<Restaurant> getRestaurants() {
-		
-		Iterable<Restaurant> iter = restaurantRepo.findAll();
-
-        List<Restaurant> restaurants = new ArrayList<Restaurant>();
-
-		if (iter != null) {
-			for(Restaurant restaurant: iter) {
-                restaurants.add(restaurant);
-			}
-		}
-		
-		return restaurants;
-	}
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Restaurant> getRestaurant(@PathVariable Long id) {
-        Restaurant retVal = restaurantRepo.findOne(id);
-
-        return new ResponseEntity<Restaurant>(retVal, HttpStatus.OK);
-    }
-
-	@RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
-	public List<Reservation> getReservationsForRestaurant(@PathVariable Long id, 
-		@RequestParam(value = "partySize", required = false) Integer partySize) {
-		
-		List<Reservation> retVal = null;
-		
-		if (partySize != null) {
-			retVal = reservationRepo.findByRestaurantIdAndPartySize(id,  partySize);
-		} else {
-			retVal = reservationRepo.findByRestaurantId(id);
-		}
-
-		return retVal;
-	}
-
 }

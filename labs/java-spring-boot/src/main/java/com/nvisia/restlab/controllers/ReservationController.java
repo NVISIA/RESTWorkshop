@@ -19,22 +19,4 @@ public class ReservationController {
 	private ReservationRepository reservationRepo;
 	@Autowired
 	private RestaurantRepository restaurantRepo;
-	
-	@RequestMapping(method= RequestMethod.GET) 
-	public List<Reservation> getReservations() {
-		List<Reservation> retVal = new ArrayList<Reservation>();
-		
-		for (Reservation reservation: reservationRepo.findAll()) {
-			retVal.add(reservation);
-		}
-		return retVal;
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Reservation getReservationById(Long id) {
-		Reservation reservation = reservationRepo.findOne(id);
-
-		return reservation;
-	}
-	
 }
