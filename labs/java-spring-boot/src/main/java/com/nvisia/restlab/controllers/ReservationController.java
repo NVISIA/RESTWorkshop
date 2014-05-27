@@ -1,18 +1,15 @@
 package com.nvisia.restlab.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.nvisia.restlab.integrations.ReservationRepository;
 import com.nvisia.restlab.integrations.RestaurantRepository;
 import com.nvisia.restlab.models.Reservation;
 import com.nvisia.restlab.models.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -23,7 +20,8 @@ public class ReservationController extends AbstractRestController {
 	@Autowired
 	private RestaurantRepository restaurantRepo;
 	
-	@RequestMapping(method= RequestMethod.GET) 
+	@RequestMapping(method= RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
 	public List<Reservation> getReservations() {
 		List<Reservation> retVal = new ArrayList<Reservation>();
 		
@@ -34,6 +32,7 @@ public class ReservationController extends AbstractRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
 	public Reservation getReservationById(Long id) {
 		Reservation reservation = reservationRepo.findOne(id);
 		
@@ -42,6 +41,7 @@ public class ReservationController extends AbstractRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
 	public Reservation makeReservation(@RequestBody Reservation reservation) {
 		
 		Long restId = reservation.getRestaurant().getId();
@@ -53,6 +53,7 @@ public class ReservationController extends AbstractRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 
 		Long restId = reservation.getRestaurant().getId();
