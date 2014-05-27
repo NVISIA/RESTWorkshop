@@ -1,10 +1,9 @@
 package com.nvisia.restlab.integrations;
 
-import java.util.List;
-
+import com.nvisia.restlab.models.Reservation;
 import org.springframework.data.repository.CrudRepository;
 
-import com.nvisia.restlab.models.Reservation;
+import java.util.List;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 	

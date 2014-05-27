@@ -1,14 +1,10 @@
 package com.nvisia.restlab.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -29,6 +25,9 @@ public class Reservation {
 	private Integer partySize;
 	@Column(name = "CANCELLED")
 	private Boolean cancelled;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd,HH:00", timezone="CST")
+    @Column(name = "RESERVATION_TIME")
+    private Timestamp reservationTime;
 	
 	public Reservation() {
 		super();
@@ -69,4 +68,12 @@ public class Reservation {
     public String getReservationName() { return reservationName; }
 
     public void setReservationName(String reservationName) { this.reservationName = reservationName; }
+
+    public Timestamp getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(Timestamp reservationTime) {
+        this.reservationTime = reservationTime;
+    }
 }
