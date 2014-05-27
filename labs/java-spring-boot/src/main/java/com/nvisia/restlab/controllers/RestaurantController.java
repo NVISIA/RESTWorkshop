@@ -45,20 +45,6 @@ public class RestaurantController {
         return new ResponseEntity<Restaurant>(retVal, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
-
-        restaurantRepo.save(restaurant);
-
-        return restaurant;
-    }
-
-    @RequestMapping(method = RequestMethod.PUT)
-    public Restaurant updateRestaurant(@RequestBody Restaurant restaurant) {
-        restaurantRepo.save(restaurant);
-        return restaurant;
-    }
-
 	@RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
 	public List<Reservation> getReservationsForRestaurant(@PathVariable Long id, 
 		@RequestParam(value = "partySize", required = false) Integer partySize) {
@@ -73,14 +59,4 @@ public class RestaurantController {
 
 		return retVal;
 	}
-
-    @RequestMapping(value = "{id}/reservations", method = RequestMethod.POST)
-    public Reservation makeReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
-
-        Restaurant restaurant  = restaurantRepo.findOne(id);
-
-        reservation.setRestaurant(restaurant);
-        reservationRepo.save(reservation);
-        return reservation;
-    }
 }
