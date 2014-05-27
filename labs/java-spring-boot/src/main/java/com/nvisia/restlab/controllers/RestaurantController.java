@@ -4,11 +4,7 @@ import com.nvisia.restlab.integrations.ReservationRepository;
 import com.nvisia.restlab.integrations.RestaurantRepository;
 import com.nvisia.restlab.models.Reservation;
 import com.nvisia.restlab.models.Restaurant;
-import com.nvisia.restlab.models.RestaurantResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@ExposesResourceFor(Restaurant.class)
 @RequestMapping("/api/restaurants")
 public class RestaurantController extends AbstractRestController {
 	
@@ -28,30 +23,23 @@ public class RestaurantController extends AbstractRestController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public List<RestaurantResource> getRestaurants() {
+	public List<Restaurant> getRestaurants() {
 		
 		Iterable<Restaurant> iter = restaurantRepo.findAll();
 
-        List<RestaurantResource> resources = new ArrayList<RestaurantResource>();
+        List<Restaurant> restaurants = new ArrayList<Restaurant>();
 
 		if (iter != null) {
 			for(Restaurant restaurant: iter) {
-                RestaurantResource resource = new RestaurantResource(restaurant);
-                resource.add(linkTo(RestaurantController.class)
-                        .slash(restaurant.getId())
-                        .withSelfRel());
-                resource.add(linkTo(RestaurantController.class)
-                        .slash(restaurant.getId())
-                        .slash("reservations")
-                        .withRel("reservations"));
-                resources.add(resource);
+                restaurants.add(restaurant);
 			}
 		}
 		
-		return resources;
+		return restaurants;
 	}
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Restaurant> getRestaurant(@PathVariable Long id) {
         Restaurant retVal = restaurantRepo.findOne(id);
 
@@ -79,6 +67,7 @@ public class RestaurantController extends AbstractRestController {
     }
 
 	@RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
 	public List<Reservation> getReservationsForRestaurant(@PathVariable Long id, 
 		@RequestParam(value = "partySize", required = false) Integer partySize) {
 		

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "RESTAURANTS")
-public class Restaurant implements Identifiable<Long> {
+public class Restaurant {
 	
 	@Id
 	@GeneratedValue
