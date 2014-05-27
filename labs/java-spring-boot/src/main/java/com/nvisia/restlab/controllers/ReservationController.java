@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservations")
-public class ReservationController extends AbstractRestController {
+public class ReservationController {
 	
 	@Autowired
 	private ReservationRepository reservationRepo;
@@ -21,7 +21,6 @@ public class ReservationController extends AbstractRestController {
 	private RestaurantRepository restaurantRepo;
 	
 	@RequestMapping(method= RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
 	public List<Reservation> getReservations() {
 		List<Reservation> retVal = new ArrayList<Reservation>();
 		
@@ -32,16 +31,13 @@ public class ReservationController extends AbstractRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
 	public Reservation getReservationById(Long id) {
 		Reservation reservation = reservationRepo.findOne(id);
-		
-		if (reservation == null) throw new NotFoundException();
+
 		return reservation;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
 	public Reservation makeReservation(@RequestBody Reservation reservation) {
 		
 		Long restId = reservation.getRestaurant().getId();
@@ -53,7 +49,6 @@ public class ReservationController extends AbstractRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 
 		Long restId = reservation.getRestaurant().getId();

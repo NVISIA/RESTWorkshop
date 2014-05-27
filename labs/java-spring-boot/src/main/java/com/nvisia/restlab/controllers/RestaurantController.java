@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/restaurants")
-public class RestaurantController extends AbstractRestController {
+public class RestaurantController {
 	
 	@Autowired
 	private RestaurantRepository restaurantRepo;
@@ -22,7 +22,6 @@ public class RestaurantController extends AbstractRestController {
 	private ReservationRepository reservationRepo;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
 	public List<Restaurant> getRestaurants() {
 		
 		Iterable<Restaurant> iter = restaurantRepo.findAll();
@@ -42,15 +41,10 @@ public class RestaurantController extends AbstractRestController {
     public ResponseEntity<Restaurant> getRestaurant(@PathVariable Long id) {
         Restaurant retVal = restaurantRepo.findOne(id);
 
-        if (retVal == null) {
-            throw new NotFoundException();
-        }
-
         return new ResponseEntity<Restaurant>(retVal, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
     public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
 
         restaurantRepo.save(restaurant);
@@ -59,7 +53,6 @@ public class RestaurantController extends AbstractRestController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
     public Restaurant updateRestaurant(@RequestBody Restaurant restaurant) {
         restaurantRepo.save(restaurant);
         return restaurant;
@@ -77,19 +70,14 @@ public class RestaurantController extends AbstractRestController {
 			retVal = reservationRepo.findByRestaurantId(id);
 		}
 		
-		if (retVal == null || retVal.size() < 1) {
-			throw new NotFoundException();
-		}
-				
+
 		return retVal;
 	}
 
     @RequestMapping(value = "{id}/reservations", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
     public Reservation makeReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
 
         Restaurant restaurant  = restaurantRepo.findOne(id);
-        if (null == restaurant) throw new NotFoundException();
 
         reservation.setRestaurant(restaurant);
         reservationRepo.save(reservation);
