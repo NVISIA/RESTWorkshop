@@ -4,6 +4,7 @@ import com.nvisia.restlab.integrations.ReservationRepository;
 import com.nvisia.restlab.integrations.RestaurantRepository;
 import com.nvisia.restlab.models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,7 @@ public class ReservationController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Reservation getReservationById(Long id) {
+	public Reservation getReservationById(@PathVariable Long id) {
 		Reservation reservation = reservationRepo.findOne(id);
 
 		return reservation;
