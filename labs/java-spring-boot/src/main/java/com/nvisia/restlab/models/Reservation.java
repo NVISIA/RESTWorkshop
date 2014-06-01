@@ -14,7 +14,6 @@ public class Reservation {
 	@GeneratedValue
 	@Column(name = "ID")
 	private Long id;
-    @JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Restaurant restaurant;
     @Column(name = "RESERVED_BY")
