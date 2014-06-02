@@ -53,11 +53,7 @@ public class ReservationController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 
-		Long restId = reservation.getRestaurant().getId();
-		Restaurant restaurant = restaurantRepo.findOne(restId);
-		reservation.setRestaurant(restaurant);
-		reservation = reservationRepo.save(reservation);
-		
+        reservationRepo.save(reservation);
 		return reservation;
 	}
 	
