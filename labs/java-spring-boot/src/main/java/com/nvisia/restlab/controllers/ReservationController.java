@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class ReservationController extends AbstractRestController {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
 	public Reservation makeReservation(@RequestBody Reservation reservation) {
 		
 		Long restId = reservation.getRestaurant().getId();
@@ -54,6 +56,7 @@ public class ReservationController extends AbstractRestController {
 	
 	@RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
+    @Transactional
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 
         Reservation reservationFromDb = reservationRepo.findOne(reservation.getId());
