@@ -56,8 +56,15 @@ public class ReservationController extends AbstractRestController {
     @ResponseStatus(HttpStatus.OK)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 
+        Reservation reservationFromDb = reservationRepo.findOne(reservation.getId());
+
 		Long restId = reservation.getRestaurant().getId();
 		Restaurant restaurant = restaurantRepo.findOne(restId);
+        if (restaurant == null) throw new NotFoundException("Could not find restaurant for this reservation");
+
+        if (!(restaurant.getId().equals(reservationFromDb.getRestaurant().getId()))) throw
+                new  RuntimeException("Reservation is not for this restaurant.");
+
 		reservation.setRestaurant(restaurant);
 		reservation = reservationRepo.save(reservation);
 		
