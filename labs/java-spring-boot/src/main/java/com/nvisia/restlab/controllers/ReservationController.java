@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+    @Transactional
 	public Reservation makeReservation(@RequestBody Reservation reservation) {
 		
 		Long restId = reservation.getRestaurant().getId();
@@ -51,7 +53,11 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
+    @Transactional
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
+
+        Reservation reservationToSave = reservationRepo.findOne(reservation.getId());
+        reservation.setRestaurant(reservationToSave.getRestaurant());
 
         reservationRepo.save(reservation);
 		return reservation;

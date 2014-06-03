@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class RestaurantController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @Transactional
     public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
 
         restaurantRepo.save(restaurant);
@@ -54,6 +56,7 @@ public class RestaurantController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
+    @Transactional
     public Restaurant updateRestaurant(@RequestBody Restaurant restaurant) {
         restaurantRepo.save(restaurant);
         return restaurant;
@@ -75,6 +78,7 @@ public class RestaurantController {
 	}
 
     @RequestMapping(value = "{id}/reservations", method = RequestMethod.POST)
+    @Transactional
     public Reservation makeReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
 
         Restaurant restaurant  = restaurantRepo.findOne(id);
